@@ -1,0 +1,77 @@
+.homepage {
+    .sign-container {
+        display: flex;
+        width: 50%;
+        margin: 0 auto;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 40px;
+
+        .sign {
+            width: 45%;
+            box-shadow: 3px 7px 15px -4px rgba(0, 0, 0, 0.68);
+            background-color: white;
+            padding-top: 45%;
+            position: relative;
+            cursor: pointer;
+
+            img {
+                width: 90%;
+                height: 90%;
+                position: absolute;
+                top: calc(50% - 45%);
+                left: calc(50% - 45%);
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 25%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 75%, rgba(0, 0, 0, 0.3) 100%);
+                background-size: 400% 400%;
+                background-repeat: no-repeat;
+                max-width: 100vw;
+                max-height: 100vh;
+                visibility: hidden;
+                transition: .5s all;
+            }
+
+            &:hover,
+            &.selected {
+                box-shadow: 3px 7px 14px 2px rgba(0, 0, 0, 0.8);
+            }
+
+            &:hover::after,
+            &.selected::after {
+                visibility: visible;
+                background-position: 100% 100%;
+            }
+        }
+    }
+
+    .continue-btn {
+        border: none;
+        background: transparent;
+        background-color: $darkBlue;
+        color: white;
+        padding: 20px 0;
+        font-size: 20px;
+        text-transform: uppercase;
+        border-radius: 5px;
+        display: block;
+        width: 50%;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 700;
+        margin: 100px auto;
+        box-shadow: 3px 7px 15px -4px rgba(0, 0, 0, 0.68);
+        
+        &:hover {
+            box-shadow: 3px 7px 14px 2px rgba(0, 0, 0, 0.8);
+            background-color: rgb(57, 140, 175);
+        }
+    }
+}

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Rock+Salt&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,200i,300,300i,400,500,700,700i,800i,900i&display=swap');
+
+@import './styles/variables.scss';
+@import './styles/header.scss';
+@import './styles/main.scss';
+@import './styles/homepage.scss';
+@import './styles/gamePage.scss';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+    background-color: $mainBg;
+}
+

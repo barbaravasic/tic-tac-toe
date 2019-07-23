@@ -1,0 +1,42 @@
+.game-table {
+    width: 50%;
+    margin: 0 auto;
+    border-collapse: collapse;
+
+    .row {
+        td {
+            border: 5px solid black;
+            padding: 30px;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+            }
+
+            &:first-of-type{
+                border-left: none;
+            }
+
+            &:last-of-type {
+                border-right: none;
+            }
+        }
+
+        &:first-of-type {
+            td{
+                border-top: none;
+            }
+        }
+
+        &:last-of-type {
+            td{
+                border-bottom: none;
+            }
+        }
+
+    }
+
+    @media all and (max-width: 767px) {
+        width: 100%;
+    }
+}
