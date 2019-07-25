@@ -31,9 +31,9 @@ export default class GamePage extends Component {
     }
 
     componentDidMount() {
-       const gameFields = gameFieldService.createGameField()
+        const gameFields = gameFieldService.createGameField()
 
-       this.setState({gameFields})
+        this.setState({ gameFields })
     }
 
     declareWinner = () => {
@@ -52,8 +52,11 @@ export default class GamePage extends Component {
             this.setState({
                 winner: 'Second player'
             })
+        } else if (this.state.numberOfClicks === 9) {
+            this.setState({
+                winner: "No one"
+            })
         }
-
     }
 
     onReload = () => {
@@ -70,9 +73,9 @@ export default class GamePage extends Component {
 
                 {winner && (
                     <>
-                <div className="winner">{winner} wins!</div>
-                <button className="reload btn" onClick={this.onReload}>Reload</button>
-                </>
+                        <div className="winner">{winner} wins!</div>
+                        <button className="reload btn" onClick={this.onReload}>Reload</button>
+                    </>
                 )}
             </div>
         )
