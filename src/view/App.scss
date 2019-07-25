@@ -8,12 +8,41 @@
 @import './styles/gamePage.scss';
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
+body {
     background-color: $mainBg;
 }
 
+.btn {
+    border: none;
+    background: transparent;
+    background-color: $darkBlue;
+    color: white;
+    padding: 20px 0;
+    font-size: 20px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    display: block;
+    width: 50%;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    margin: 100px auto;
+    box-shadow: 3px 7px 15px -4px rgba(0, 0, 0, 0.68);
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 3px 7px 14px 2px rgba(0, 0, 0, 0.8);
+        background-color: rgb(57, 140, 175);
+    }
+
+    @media all and (max-width: 767px) {
+        padding: 2.607561929595828VW 0;
+        font-size: 2.607561929595828VW;
+        margin: 13.03780964797914VW auto;
+    }
+}

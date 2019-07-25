@@ -4,7 +4,7 @@ import { AppContext } from '../_context/AppContext';
 
 const Homepage = () => {
 
-    const { setSign, isX } = useContext(AppContext)
+    const { setSign } = useContext(AppContext)
 
     const onSetSign = (e) => {
         const clickedSign = e.currentTarget
@@ -20,7 +20,7 @@ const Homepage = () => {
     return (
         <div className="homepage">
             <h2 className="title">Welcome to Tic Tac Toe game</h2>
-            <h3 className="subtitle">Choose your sign</h3>
+            <h3 className="subtitle">First to play chooses</h3>
             <div className="sign-container">
                 <div className="sign" id="sign-x" onClick={onSetSign}>
                     <img src="./images/x.png" alt="x sign" />
@@ -29,7 +29,7 @@ const Homepage = () => {
                     <img src="./images/o.png" alt="o sign" />
                 </div>
             </div>
-            <Link to="/play-game" className="continue-btn">Nastavi</Link>
+            <Link to="/play-game" className="btn">Nastavi</Link>
         </div>
     );
 };

@@ -1,42 +1,55 @@
-.game-table {
-    width: 50%;
-    margin: 0 auto;
-    border-collapse: collapse;
-
-    .row {
-        td {
-            border: 5px solid black;
-            padding: 30px;
+.game-page{
+    position: relative;
+    .game-table {
+        width: 50%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3);
+    
+        .game-field {
             cursor: pointer;
-
+            padding-bottom: 100%;
+            position: relative;
+            border-bottom: 2px solid black;
+            border-left: 2px solid black;
+    
             img {
-                width: 100%;
+                width: 70%;
+                position: absolute;
+                top: 15%;
+                left: 15%;
+                display: none;
             }
-
-            &:first-of-type{
+    
+            &:first-of-type,
+            &:nth-of-type(4),
+            &:nth-of-type(7) {
                 border-left: none;
             }
-
-            &:last-of-type {
-                border-right: none;
-            }
-        }
-
-        &:first-of-type {
-            td{
-                border-top: none;
-            }
-        }
-
-        &:last-of-type {
-            td{
+    
+            &:nth-of-type(7),
+            &:nth-of-type(8),
+            &:nth-of-type(9) {
                 border-bottom: none;
             }
+    
+            &.selected img{
+                display: inline;
+            }
         }
-
     }
+    
+    .winner {
+        font-size: 45px;
+        font-weight: bold;
+        color: $darkBlue;
+        text-align: center;
+        margin-top: 40px;
 
-    @media all and (max-width: 767px) {
-        width: 100%;
+        @media all and (max-width: 767px) {
+            font-size: 5.867014341590613VW;
+            margin-top: 5.215123859191656VW;
+        }
     }
 }
+
