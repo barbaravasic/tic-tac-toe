@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { AppContext } from '../_context/AppContext';
 
 const Homepage = () => {
@@ -20,6 +20,16 @@ const Homepage = () => {
     return (
         <div className="homepage">
             <h2 className="title">Welcome to Tic Tac Toe game</h2>
+            <div className="insert-names">
+                <div class="insert-name">
+                    <input type="text" required />
+                    <label>First Player's Name</label>
+                </div>
+                <div class="insert-name">
+                    <input type="text" required />
+                    <label>Second Player's Name</label>
+                </div>
+            </div>
             <h3 className="subtitle">First to play chooses</h3>
             <div className="sign-container">
                 <div className="sign" id="sign-x" onClick={onSetSign}>

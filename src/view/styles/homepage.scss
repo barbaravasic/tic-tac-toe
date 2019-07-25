@@ -1,4 +1,76 @@
+.transition {
+    transition: all 0.25s cubic-bezier(.53, .01, .35, 1.5);
+}
+
 .homepage {
+    .insert-names {
+        width: 50%;
+        margin: 0 auto;
+        margin-bottom: 50px;
+        .insert-name {
+            position: relative;
+            padding: 10px 0;
+
+            label {
+                @extend .transition;
+                transform-origin: left center;
+                color: $darkBlue;
+                font-weight: 300;
+                letter-spacing: 0.01em;
+                font-size: 17px;
+                box-sizing: border-box;
+                padding: 10px 15px;
+                display: block;
+                position: absolute;
+                top: calc(50% - 17px);
+                left: 0;
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            input[type="text"] {
+                @extend .transition;
+                background-color: none;
+                border: 1px solid $darkBlue;
+                font-size: 17px;
+                width: 100%;
+                display: block;
+                box-sizing: border-box;
+                padding: 10px 15px;
+                border-radius: 60px;
+                color: $darkBlue;
+                letter-spacing: 0.01em;
+                position: relative;
+                z-index: 1;
+
+                &:focus {
+                    outline: none;
+                    background: $darkBlue;
+                    color: white;
+                    margin-top: 30px;
+                }
+
+                &:valid {
+                    margin-top: 30px;
+                }
+
+                &:focus~label {
+                    transform: translate(0, -35px);
+                }
+
+                &:valid~label {
+                    text-transform: uppercase;
+                    font-style: italic;
+                    transform: translate(5px, -35px) scale(0.8);
+                }
+            }
+        }
+
+        @media all and (max-width: 767px) {
+            width: 90%;
+        }
+    }
+
     .sign-container {
         display: flex;
         width: 50%;
