@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 import { AppContext } from './_context/AppContext';
+import { storageService } from '../services/storageService';
 
 export default class AppStore extends Component {
   state = {
-    firstPlayerSign: 'x',
-    secondPlayerSign: 'o',
+    firstPlayerSign: storageService.get('firstPlayerSign') || 'x',
+    secondPlayerSign:  storageService.get('secondPlayerSign') || 'o',
     firstPlayersPositions: [],
-    secondPlayersPositions: []
+    secondPlayersPositions: [],
+    firstPlayersName: storageService.get('firstPlayersName') || 'First player',
+    secondPlayersName: storageService.get('secondPlayersName') || "Second player"
   }
 
   setSign = (clickedSign) => {
     const isX = clickedSign === 'sign-x'
     this.setState({
-      firstPlayerSign: isX ? 'x' : 'o',
-      secondPlayerSign: isX ? 'o' : 'x'
+      firstPlayerSign:  storageService.save('firstPlayerSign', isX ? 'x' : 'o'),
+      secondPlayerSign: storageService.save('secondPlayerSign',isX ? 'o' : 'x')
     })
   }
 
@@ -33,13 +36,20 @@ export default class AppStore extends Component {
     })
   }
 
+  onChangePlayersName = (inputId, value) => {
+    this.setState({
+      [inputId]: storageService.save([inputId], value)
+    })
+  }
+
   render() {
     return (
       <AppContext.Provider value={{
         ...this.state,
         setSign: this.setSign,
         setFirstPlayersPositions: this.setFirstPlayersPositions,
-        setSecondPlayersPositions: this.setSecondPlayersPositions
+        setSecondPlayersPositions: this.setSecondPlayersPositions,
+        onChangePlayersName: this.onChangePlayersName
       }}>
         {this.props.children}
       </AppContext.Provider>

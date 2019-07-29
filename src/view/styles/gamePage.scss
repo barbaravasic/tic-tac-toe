@@ -1,18 +1,22 @@
-.game-page{
-    position: relative;
+.game-page {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     .game-table {
         width: 50%;
         margin: 0 auto;
         display: grid;
         grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3);
-    
+
         .game-field {
             cursor: pointer;
             padding-bottom: 100%;
             position: relative;
             border-bottom: 2px solid black;
             border-left: 2px solid black;
-    
+
             img {
                 width: 70%;
                 position: absolute;
@@ -20,36 +24,55 @@
                 left: 15%;
                 display: none;
             }
-    
+
             &:first-of-type,
             &:nth-of-type(4),
             &:nth-of-type(7) {
                 border-left: none;
             }
-    
+
             &:nth-of-type(7),
             &:nth-of-type(8),
             &:nth-of-type(9) {
                 border-bottom: none;
             }
-    
-            &.selected img{
+
+            &.selected img {
                 display: inline;
             }
         }
     }
-    
-    .winner {
-        font-size: 45px;
-        font-weight: bold;
-        color: $darkBlue;
-        text-align: center;
-        margin-top: 40px;
+
+    .winner-container-overlay {
+        position: absolute;
+        width: 100%;
+        background-color: rgba(212, 182, 185, 0.603);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 40%;
+        padding: 50px;
+        .winner {
+            font-size: 60px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: $darkBlue;
+            text-align: center;
+            text-shadow: 3px 3px 3px rgba(5, 3, 2, 0.315);
+
+            @media all and (max-width: 767px) {
+                font-size: 5.867014341590613VW;
+                margin-top: 5.215123859191656VW;
+            }
+        }
+
+        .btn {
+            margin: 0;
+        }
 
         @media all and (max-width: 767px) {
-            font-size: 5.867014341590613VW;
-            margin-top: 5.215123859191656VW;
+            padding: 6.51890482398957VW;
         }
     }
 }
-

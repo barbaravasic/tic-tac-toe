@@ -1,16 +1,15 @@
 .main {
-    height: 100vh;
+    height: calc(100% - #{$headerHeight});
     font-family: $poppinsFont;
-    padding: 50px 20px;
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-
+    
     .title {
         font-size: 45px;
         font-weight: 700;
         text-align: center;
-        margin-bottom: 100px;
+        margin: 50px;
 
         @media all and (max-width: 767px) {
             font-size: 5.867014341590613VW;
@@ -27,5 +26,9 @@
         @media all and (max-width: 767px) {
             font-size: 3.911342894393742VW;
         }
+    }
+
+    @media all and (max-width: 767px) {
+        height: calc(100% - #{$headerHeightMobile});
     }
 }

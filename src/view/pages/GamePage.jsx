@@ -39,7 +39,7 @@ export default class GamePage extends Component {
 
     declareWinner = () => {
 
-        const { firstPlayersPositions, secondPlayersPositions } = this.context
+        const { firstPlayersPositions, secondPlayersPositions, firstPlayersName, secondPlayersName } = this.context
 
         const firstPlayersCombo = gamePlayService.createPlayersCombo(firstPlayersPositions)
         const secondPlayersCombo = gamePlayService.createPlayersCombo(secondPlayersPositions)
@@ -47,18 +47,18 @@ export default class GamePage extends Component {
 
         if (gamePlayService.isWinningCombo(firstPlayersCombo)) {
             this.setState({
-                winner: 'First player',
-                isGameOver:true
+                winner: firstPlayersName,
+                isGameOver: true
             })
         } else if (gamePlayService.isWinningCombo(secondPlayersCombo)) {
             this.setState({
-                winner: 'Second player',
-                isGameOver:true
+                winner: secondPlayersName,
+                isGameOver: true
             })
         } else if (this.state.numberOfClicks === 9) {
             this.setState({
                 winner: "No one",
-                isGameOver:true
+                isGameOver: true
             })
         }
     }
@@ -68,18 +68,18 @@ export default class GamePage extends Component {
     }
 
     render() {
-        const { winner, firstPlayersTurn, gameFields,isGameOver } = this.state
+        const { winner, firstPlayersTurn, gameFields, isGameOver } = this.state
         return (
             <div className="game-page">
                 <div className="game-table">
-                    {gameFields.map(field => <GameField key={field.position} field={field} firstPlayersTurn={firstPlayersTurn} onSelectField={this.onSelectField} isGameOver={isGameOver}/>)}
+                    {gameFields.map(field => <GameField key={field.position} field={field} firstPlayersTurn={firstPlayersTurn} onSelectField={this.onSelectField} isGameOver={isGameOver} />)}
                 </div>
 
                 {winner && (
-                    <>
+                    <div className="winner-container-overlay">
                         <div className="winner">{winner} wins!</div>
                         <button className="reload btn" onClick={this.onReload}>Reload</button>
-                    </>
+                    </div>
                 )}
             </div>
         )

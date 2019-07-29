@@ -1,11 +1,12 @@
 .header {
     display: flex;
     align-items: center;
-    padding: 20px 40px;
+    padding: 0 40px;
     box-shadow: 0px 9px 15px -2px rgba(0, 0, 0, 0.75);
     position: relative;
     z-index: 2;
     background-color: white;
+    height: $headerHeight;
 
     .logo {
         cursor: pointer;
@@ -29,5 +30,9 @@
             font-size: 5.867014341590613VW;
         margin-left: 2.607561929595828VW;
         }
+    }
+
+    @media all and (max-width: 767px) {
+        height: $headerHeightMobile;
     }
 }

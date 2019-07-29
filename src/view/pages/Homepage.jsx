@@ -4,7 +4,7 @@ import { AppContext } from '../_context/AppContext';
 
 const Homepage = () => {
 
-    const { setSign } = useContext(AppContext)
+    const { setSign, firstPlayersName, secondPlayersName, onChangePlayersName } = useContext(AppContext)
 
     const onSetSign = (e) => {
         const clickedSign = e.currentTarget
@@ -17,16 +17,23 @@ const Homepage = () => {
 
     }
 
+    const onChangeName = (e) => {
+        const inputId = e.currentTarget.id
+        const value = e.currentTarget.value
+
+        onChangePlayersName(inputId, value)
+    }
+
     return (
         <div className="homepage">
             <h2 className="title">Welcome to Tic Tac Toe game</h2>
             <div className="insert-names">
-                <div class="insert-name">
-                    <input type="text" required />
+                <div className="insert-name">
+                    <input id="firstPlayersName" type="text" value={firstPlayersName} onChange={onChangeName}/>
                     <label>First Player's Name</label>
                 </div>
-                <div class="insert-name">
-                    <input type="text" required />
+                <div className="insert-name">
+                    <input id="secondPlayersName" type="text"  value={secondPlayersName} onChange={onChangeName}/>
                     <label>Second Player's Name</label>
                 </div>
             </div>
