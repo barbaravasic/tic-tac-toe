@@ -10,7 +10,8 @@ export default class GamePage extends Component {
         gameFields: [],
         numberOfClicks: 0,
         firstPlayersTurn: true,
-        winner: ''
+        winner: '',
+        isGameOver: false
     }
 
     onSelectField = () => {
@@ -46,15 +47,18 @@ export default class GamePage extends Component {
 
         if (gamePlayService.isWinningCombo(firstPlayersCombo)) {
             this.setState({
-                winner: 'First player'
+                winner: 'First player',
+                isGameOver:true
             })
         } else if (gamePlayService.isWinningCombo(secondPlayersCombo)) {
             this.setState({
-                winner: 'Second player'
+                winner: 'Second player',
+                isGameOver:true
             })
         } else if (this.state.numberOfClicks === 9) {
             this.setState({
-                winner: "No one"
+                winner: "No one",
+                isGameOver:true
             })
         }
     }
@@ -64,11 +68,11 @@ export default class GamePage extends Component {
     }
 
     render() {
-        const { winner, firstPlayersTurn, gameFields } = this.state
+        const { winner, firstPlayersTurn, gameFields,isGameOver } = this.state
         return (
             <div className="game-page">
                 <div className="game-table">
-                    {gameFields.map(field => <GameField key={field.position} field={field} firstPlayersTurn={firstPlayersTurn} onSelectField={this.onSelectField} />)}
+                    {gameFields.map(field => <GameField key={field.position} field={field} firstPlayersTurn={firstPlayersTurn} onSelectField={this.onSelectField} isGameOver={isGameOver}/>)}
                 </div>
 
                 {winner && (
