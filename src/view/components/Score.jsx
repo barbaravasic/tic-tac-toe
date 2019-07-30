@@ -11,9 +11,17 @@ const Score = () => {
 
     const onClick = () => {
         const scoreDropdown = document.querySelector('.score-dropdown')
-        isDropdownVisible ? 
-        scoreDropdown.classList.remove('open')
-        :scoreDropdown.classList.add('open')
+        const arrow = document.querySelector('.arrow')
+        if( isDropdownVisible) {
+            scoreDropdown.classList.remove('open')
+            arrow.classList.remove('arrow-up')
+            arrow.classList.add('arrow-down')
+        } else {
+            scoreDropdown.classList.add('open')
+            arrow.classList.remove('arrow-down')
+            arrow.classList.add('arrow-up')
+        }
+
         toggleDropdown(!isDropdownVisible)
     }
 
@@ -30,7 +38,7 @@ const Score = () => {
                         <div>{secondPlayersScore}</div>
                     </div>
                 </div>
-            <button className="score-btn btn" onClick={onClick}>Score</button>
+            <button className="score-btn btn" onClick={onClick}>Score <i className="arrow arrow-down"></i></button>
             </div>
         </div>
     );
