@@ -5,35 +5,48 @@ import { storageService } from '../services/storageService';
 export default class AppStore extends Component {
   state = {
     firstPlayerSign: storageService.get('firstPlayerSign') || 'x',
-    secondPlayerSign:  storageService.get('secondPlayerSign') || 'o',
+    secondPlayerSign: storageService.get('secondPlayerSign') || 'o',
     firstPlayersPositions: [],
     secondPlayersPositions: [],
     firstPlayersName: storageService.get('firstPlayersName') || 'First player',
-    secondPlayersName: storageService.get('secondPlayersName') || "Second player"
+    secondPlayersName: storageService.get('secondPlayersName') || "Second player",
+    firstPlayersScore: 0,
+    secondPlayersScore: 0
   }
 
   setSign = (clickedSign) => {
     const isX = clickedSign === 'sign-x'
     this.setState({
-      firstPlayerSign:  storageService.save('firstPlayerSign', isX ? 'x' : 'o'),
-      secondPlayerSign: storageService.save('secondPlayerSign',isX ? 'o' : 'x')
+      firstPlayerSign: storageService.save('firstPlayerSign', isX ? 'x' : 'o'),
+      secondPlayerSign: storageService.save('secondPlayerSign', isX ? 'o' : 'x')
     })
   }
 
-  setFirstPlayersPositions = (pos) => {
+  setPlayersPositions = (pos, isFirstPlayer = false) => {
+    const stateItem = isFirstPlayer ? 'firstPlayersPositions' : 'secondPlayersPositions'
     this.setState(prevState => {
       return {
-        firstPlayersPositions: [...prevState.firstPlayersPositions, pos]
+        [stateItem]: [...prevState[stateItem], pos]
       }
     })
   }
 
-  setSecondPlayersPositions = (pos) => {
+  resetPlayersPositions = () => {
+    this.setState({
+      firstPlayersPositions: [],
+      secondPlayersPositions: []
+    })
+  }
+
+  setPlayersScore = (isFirstPlayer = false) => {
+    const stateItem = isFirstPlayer ? 'firstPlayersScore' : 'secondPlayersScore'
+    // storageService.save([stateItem], value)
     this.setState(prevState => {
       return {
-        secondPlayersPositions: [...prevState.secondPlayersPositions, pos]
+        [stateItem]: prevState[stateItem] + 1
       }
     })
+
   }
 
   onChangePlayersName = (inputId, value) => {
@@ -42,14 +55,16 @@ export default class AppStore extends Component {
     })
   }
 
+
   render() {
     return (
       <AppContext.Provider value={{
         ...this.state,
         setSign: this.setSign,
-        setFirstPlayersPositions: this.setFirstPlayersPositions,
-        setSecondPlayersPositions: this.setSecondPlayersPositions,
-        onChangePlayersName: this.onChangePlayersName
+        setPlayersPositions: this.setPlayersPositions,
+        onChangePlayersName: this.onChangePlayersName,
+        setPlayersScore: this.setPlayersScore,
+        resetPlayersPositions:this.resetPlayersPositions
       }}>
         {this.props.children}
       </AppContext.Provider>

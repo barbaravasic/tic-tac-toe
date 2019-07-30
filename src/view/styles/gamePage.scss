@@ -1,8 +1,9 @@
 .game-page {
     height: 100%;
     display: flex;
-    justify-content: center;
+    // justify-content: center;/
     align-items: center;
+    flex-direction: column;
 
     .game-table {
         width: 50%;
@@ -46,6 +47,7 @@
     .winner-container-overlay {
         position: absolute;
         width: 100%;
+        top: 30%;
         background-color: rgba(212, 182, 185, 0.603);
         display: flex;
         flex-direction: column;
@@ -61,9 +63,9 @@
             text-align: center;
             text-shadow: 3px 3px 3px rgba(5, 3, 2, 0.315);
 
-            @media all and (max-width: 767px) {
+            @media #{$mobileScreen} {
                 font-size: 5.867014341590613VW;
-                margin-top: 5.215123859191656VW;
+                margin-top: 0;
             }
         }
 
@@ -71,8 +73,10 @@
             margin: 0;
         }
 
-        @media all and (max-width: 767px) {
+        @media #{$mobileScreen} {
             padding: 6.51890482398957VW;
+            height: 20%;
+            top: 15%;
         }
     }
 }

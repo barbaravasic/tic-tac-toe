@@ -1,0 +1,85 @@
+.score {
+    width: 35%;
+    position: relative;
+    align-self: flex-end;
+    height: 200px;
+
+    .score-dropdown {
+        transition: all .5s ease-in-out;
+        width: 100%;
+        position: absolute;
+        top: -125px;
+        left: 0;
+
+        .dropdown-container {
+            height: 120px;
+            background-color: white;
+            box-shadow: 3px 4px 8px 1px rgba(0, 0, 0, 0.51);
+            display: flex;
+            justify-content: center;
+            padding: 30px 25px;
+
+            .player-score {
+                border-right: 1px solid black;
+                padding-right: 20px;
+                margin-right: 20px;
+
+                &:last-of-type {
+                    border: none;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                h5 {
+                    color: $sunsetOrange;
+                    font-size: 22px;
+
+                    @media #{$tabletScreen} {
+                        font-size: 2.1153846153846154VW;
+                    }
+                }
+
+                div {
+                    color: $darkBlue;
+                    font-weight: 600;
+                    font-size: 18px;
+                    text-align: center;
+
+                    @media #{$tabletScreen} {
+                        font-size: 1.7307692307692308VW;
+                    }
+                }
+            }
+
+            @media #{$tabletScreen} {
+                padding: 2.8846153846153846VW 2.403846153846154VW;
+                height: 11.538461538461538VW;
+            }
+        }
+
+        &.open {
+            top: 0;
+        }
+
+        @media #{$tabletScreen} {
+            top: -12.01923076923077VW;
+        }
+    }
+
+    .score-btn {
+        margin: 0 auto;
+
+        @media #{$tabletScreen} {
+            font-size: 1.9230769230769231VW;
+            padding: 1.9230769230769231VW 0
+        }
+    }
+
+    @media #{$tabletScreen} {
+        height: 19.230769230769234VW;
+    }
+
+    @media #{$mobileScreen} {
+        width: 50%;
+    }
+}

@@ -3,9 +3,11 @@
 
 @import './styles/variables.scss';
 @import './styles/header.scss';
+@import './styles/score.scss';
 @import './styles/main.scss';
 @import './styles/homepage.scss';
 @import './styles/gamePage.scss';
+
 
 * {
     box-sizing: border-box;
@@ -46,7 +48,7 @@ body {
         background-color: rgb(57, 140, 175);
     }
 
-    @media all and (max-width: 767px) {
+    @media #{$mobileScreen} {
         padding: 2.607561929595828VW 0;
         font-size: 2.607561929595828VW;
         margin: 13.03780964797914VW auto;

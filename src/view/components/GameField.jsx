@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../_context/AppContext';
 
 const GameField = ({ firstPlayersTurn, onSelectField, field, isGameOver }) => {
-    const { firstPlayerSign, secondPlayerSign, setFirstPlayersPositions, setSecondPlayersPositions} = useContext(AppContext)
+    const { firstPlayerSign, secondPlayerSign, setPlayersPositions} = useContext(AppContext)
 
     const onSelect = (e) => {
         field.setSelected()
@@ -14,11 +14,11 @@ const GameField = ({ firstPlayersTurn, onSelectField, field, isGameOver }) => {
         if (firstPlayersTurn && !isSelected && !isGameOver) {
             field.setSign(firstPlayerSign)
             onSelectField()
-            setFirstPlayersPositions(position)
+            setPlayersPositions(position, true)
         } else if(!isSelected && !isGameOver){
             field.setSign(secondPlayerSign)
             onSelectField()
-            setSecondPlayersPositions(position)
+            setPlayersPositions(position)
         }   
     }
 

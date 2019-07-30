@@ -3,6 +3,7 @@ import GameField from '../components/GameField';
 import { AppContext } from '../_context/AppContext';
 import { gameFieldService } from '../../services/gameFieldsService';
 import { gamePlayService } from '../../services/gamePlayService';
+import Score from '../components/Score';
 
 export default class GamePage extends Component {
     static contextType = AppContext;
@@ -39,7 +40,7 @@ export default class GamePage extends Component {
 
     declareWinner = () => {
 
-        const { firstPlayersPositions, secondPlayersPositions, firstPlayersName, secondPlayersName } = this.context
+        const { firstPlayersPositions, secondPlayersPositions, firstPlayersName, secondPlayersName, setPlayersScore } = this.context
 
         const firstPlayersCombo = gamePlayService.createPlayersCombo(firstPlayersPositions)
         const secondPlayersCombo = gamePlayService.createPlayersCombo(secondPlayersPositions)
@@ -50,11 +51,13 @@ export default class GamePage extends Component {
                 winner: firstPlayersName,
                 isGameOver: true
             })
+            setPlayersScore(true)
         } else if (gamePlayService.isWinningCombo(secondPlayersCombo)) {
             this.setState({
                 winner: secondPlayersName,
                 isGameOver: true
             })
+            setPlayersScore()
         } else if (this.state.numberOfClicks === 9) {
             this.setState({
                 winner: "No one",
@@ -64,21 +67,29 @@ export default class GamePage extends Component {
     }
 
     onReload = () => {
-        window.location.reload();
+        const gameFields = gameFieldService.createGameField()
+        this.context.resetPlayersPositions()
+        this.setState({
+            isGameOver:false,  
+            gameFields,
+            winner: '',
+            firstPlayersTurn: true,
+            numberOfClicks: 0 })
     }
 
     render() {
         const { winner, firstPlayersTurn, gameFields, isGameOver } = this.state
         return (
             <div className="game-page">
+                <Score />
                 <div className="game-table">
                     {gameFields.map(field => <GameField key={field.position} field={field} firstPlayersTurn={firstPlayersTurn} onSelectField={this.onSelectField} isGameOver={isGameOver} />)}
                 </div>
 
-                {winner && (
+                {winner && isGameOver && (
                     <div className="winner-container-overlay">
                         <div className="winner">{winner} wins!</div>
-                        <button className="reload btn" onClick={this.onReload}>Reload</button>
+                         <button className="reload btn" onClick={this.onReload}>Play again</button>
                     </div>
                 )}
             </div>

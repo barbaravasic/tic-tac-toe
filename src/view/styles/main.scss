@@ -11,7 +11,7 @@
         text-align: center;
         margin: 50px;
 
-        @media all and (max-width: 767px) {
+        @media #{$mobileScreen} {
             font-size: 5.867014341590613VW;
             margin-bottom: 13.03780964797914VW;
         }
@@ -23,12 +23,12 @@
         font-weight: 500;
         color: $darkBlue;
 
-        @media all and (max-width: 767px) {
+        @media #{$mobileScreen} {
             font-size: 3.911342894393742VW;
         }
     }
 
-    @media all and (max-width: 767px) {
+    @media #{$mobileScreen} {
         height: calc(100% - #{$headerHeightMobile});
     }
 }
