@@ -79,9 +79,13 @@ export default class GamePage extends Component {
 
     render() {
         const { winner, firstPlayersTurn, gameFields, isGameOver } = this.state
+        const { firstPlayersName, secondPlayersName } = this.context
+
+        const currentPlayer = firstPlayersTurn ? firstPlayersName : secondPlayersName
         return (
             <div className="game-page">
                 <Score />
+               { !isGameOver && <h4>{currentPlayer}'s turn...</h4>}
                 <div className="game-table">
                     {gameFields.map(field => <GameField key={field.position} field={field} firstPlayersTurn={firstPlayersTurn} onSelectField={this.onSelectField} isGameOver={isGameOver} />)}
                 </div>

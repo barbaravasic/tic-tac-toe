@@ -1,9 +1,19 @@
 .game-page {
     height: 100%;
     display: flex;
-    // justify-content: center;/
     align-items: center;
     flex-direction: column;
+
+    h4 {
+        color: $darkBlue;
+        font-size: 30px;
+        margin-bottom: 40px;
+
+        @media  #{$mobileScreen} {
+            font-size: 3.911342894393742VW;
+            margin-bottom: 5.215123859191656VW;
+        }
+    }
 
     .game-table {
         width: 50%;

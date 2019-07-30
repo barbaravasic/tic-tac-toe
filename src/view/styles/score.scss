@@ -2,7 +2,7 @@
     width: 35%;
     position: relative;
     align-self: flex-end;
-    height: 200px;
+    height: 120px;
 
     .score-dropdown {
         transition: all .5s ease-in-out;
@@ -76,7 +76,7 @@
     }
 
     @media #{$tabletScreen} {
-        height: 19.230769230769234VW;
+        height: 11.538461538461538VW;
     }
 
     @media #{$mobileScreen} {
