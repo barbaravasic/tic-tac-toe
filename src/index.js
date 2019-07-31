@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom'
+import AppStore from './view/AppStore';
 import App from './view/App';
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
-import AppStore from './view/AppStore';
 ReactDOM.render(
     <HashRouter>
         <AppStore>

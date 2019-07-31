@@ -5,8 +5,9 @@
 @import './styles/header.scss';
 @import './styles/score.scss';
 @import './styles/main.scss';
-@import './styles/homepage.scss';
+@import './styles/playerInfo.scss';
 @import './styles/gamePage.scss';
+@import './styles/gameMode.scss';
 
 
 * {
@@ -47,6 +48,15 @@ body {
     &:hover {
         box-shadow: 3px 7px 14px 2px rgba(0, 0, 0, 0.8);
         background-color: rgb(57, 140, 175);
+    }
+
+    &.disable {
+        background-color: grey;
+        cursor: default;
+
+        &:hover{
+            box-shadow: 3px 7px 15px -4px rgba(0, 0, 0, 0.68);
+        }
     }
 
     @media #{$mobileScreen} {

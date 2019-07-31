@@ -4,6 +4,7 @@ import { storageService } from '../services/storageService';
 
 export default class AppStore extends Component {
   state = {
+    gameMode: storageService.get('gameMode') || null,
     firstPlayerSign: storageService.get('firstPlayerSign') || 'x',
     secondPlayerSign: storageService.get('secondPlayerSign') || 'o',
     firstPlayersPositions: [],
@@ -12,6 +13,13 @@ export default class AppStore extends Component {
     secondPlayersName: storageService.get('secondPlayersName') || "Second player",
     firstPlayersScore: 0,
     secondPlayersScore: 0
+  }
+
+  setGameMode = (chosenMode) => {
+    const isSinglePlayer = chosenMode === 'single-player'
+    this.setState({
+      gameMode: storageService.save('gameMode', isSinglePlayer ? 'single-player' : 'two-players' )
+    })
   }
 
   setSign = (clickedSign) => {
@@ -40,7 +48,6 @@ export default class AppStore extends Component {
 
   setPlayersScore = (isFirstPlayer = false) => {
     const stateItem = isFirstPlayer ? 'firstPlayersScore' : 'secondPlayersScore'
-    // storageService.save([stateItem], value)
     this.setState(prevState => {
       return {
         [stateItem]: prevState[stateItem] + 1
@@ -60,6 +67,7 @@ export default class AppStore extends Component {
     return (
       <AppContext.Provider value={{
         ...this.state,
+        setGameMode: this.setGameMode,
         setSign: this.setSign,
         setPlayersPositions: this.setPlayersPositions,
         onChangePlayersName: this.onChangePlayersName,
