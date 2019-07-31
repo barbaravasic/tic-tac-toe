@@ -1,6 +1,6 @@
 class GamePlayService {
 
-     compareWithWinCombination = (positions, winCombo) => {
+    compareWithWinCombination = (positions, winCombo) => {
         return positions.filter(el => {
             return el === winCombo[0] || el === winCombo[1] || el === winCombo[2]
         })
@@ -30,6 +30,21 @@ class GamePlayService {
 
     isWinningCombo(playersCombo) {
         return playersCombo.some(el => el.length === 3)
+    }
+
+    chooseComputerPosition(firstPlayersPositions, secondPlayersPositions) {
+        const allPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        const takenPositions = [...firstPlayersPositions, ...secondPlayersPositions]
+
+        // const takenPositions = [1, 2, 4, 5]
+        
+        const availablePositions = allPositions.filter(el => {
+            return !takenPositions.includes(el)
+        })
+        
+        const index = Math.floor(Math.random() * (availablePositions.length - 0 + 0)) + 0
+        return availablePositions[index]
     }
 }
 

@@ -7,6 +7,7 @@ import Score from '../components/Score';
 
 export default class GamePage extends Component {
     static contextType = AppContext;
+
     state = {
         gameFields: [],
         numberOfClicks: 0,
@@ -16,11 +17,32 @@ export default class GamePage extends Component {
     }
 
     onSelectField = () => {
-
+        
         this.setState(prevState => {
             return {
                 numberOfClicks: prevState.numberOfClicks + 1,
                 firstPlayersTurn: this.state.numberOfClicks % 2 !== 0
+            }
+        })
+    }
+    
+    onComputerSelectFiled = (compPos) => {
+        const { secondPlayerSign, setPlayersPositions } = this.context
+        const { gameFields } = this.state
+        const computerField = gameFields.filter(field => {
+            var position = parseInt(field.position.match(/\d/g).join(''))
+            
+            return position === compPos
+        })
+        
+        computerField[0].setSign(secondPlayerSign)
+        computerField[0].setSelected()
+        setPlayersPositions(computerField[0].position.match(/\d/g).join(''))
+
+        this.setState(prevState => {
+            return {
+                numberOfClicks: prevState.numberOfClicks + 2,
+                firstPlayersTurn: this.state.numberOfClicks % 2 === 0
             }
         })
 
@@ -53,12 +75,13 @@ export default class GamePage extends Component {
             })
             setPlayersScore(true)
         } else if (gamePlayService.isWinningCombo(secondPlayersCombo)) {
+            console.log(secondPlayersPositions)
             this.setState({
                 winner: secondPlayersName,
                 isGameOver: true
             })
             setPlayersScore()
-        } else if (this.state.numberOfClicks === 9) {
+        } else if (this.state.numberOfClicks >= 9) {
             this.setState({
                 winner: "No one",
                 isGameOver: true
@@ -70,11 +93,12 @@ export default class GamePage extends Component {
         const gameFields = gameFieldService.createGameField()
         this.context.resetPlayersPositions()
         this.setState({
-            isGameOver:false,  
+            isGameOver: false,
             gameFields,
             winner: '',
             firstPlayersTurn: true,
-            numberOfClicks: 0 })
+            numberOfClicks: 0
+        })
     }
 
     render() {
@@ -82,18 +106,19 @@ export default class GamePage extends Component {
         const { firstPlayersName, secondPlayersName } = this.context
 
         const currentPlayer = firstPlayersTurn ? firstPlayersName : secondPlayersName
+
         return (
             <div className="game-page">
                 <Score />
-               { !isGameOver && <h4>{currentPlayer}'s turn...</h4>}
+                {!isGameOver && <h4>{currentPlayer}'s turn...</h4>}
                 <div className="game-table">
-                    {gameFields.map(field => <GameField key={field.position} field={field} firstPlayersTurn={firstPlayersTurn} onSelectField={this.onSelectField} isGameOver={isGameOver} />)}
+                    {gameFields.map(field => <GameField key={field.position} field={field} firstPlayersTurn={firstPlayersTurn} onSelectField={this.onSelectField} isGameOver={isGameOver} onComputerSelectFiled={this.onComputerSelectFiled}/>)}
                 </div>
 
                 {winner && isGameOver && (
                     <div className="winner-container-overlay">
                         <div className="winner">{winner} wins!</div>
-                         <button className="reload btn" onClick={this.onReload}>Play again</button>
+                        <button className="reload btn" onClick={this.onReload}>Play again</button>
                     </div>
                 )}
             </div>
