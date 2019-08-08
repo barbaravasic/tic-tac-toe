@@ -17,7 +17,7 @@ export default class GamePage extends Component {
     }
 
     onSelectField = () => {
-        
+
         this.setState(prevState => {
             return {
                 numberOfClicks: prevState.numberOfClicks + 1,
@@ -25,27 +25,29 @@ export default class GamePage extends Component {
             }
         })
     }
-    
+
     onComputerSelectFiled = (compPos) => {
         const { secondPlayerSign, setPlayersPositions } = this.context
-        const { gameFields } = this.state
-        const computerField = gameFields.filter(field => {
-            var position = parseInt(field.position.match(/\d/g).join(''))
-            
-            return position === compPos
-        })
-        
-        computerField[0].setSign(secondPlayerSign)
-        computerField[0].setSelected()
-        setPlayersPositions(computerField[0].position.match(/\d/g).join(''))
+        const { gameFields, numberOfClicks, winner } = this.state
 
-        this.setState(prevState => {
-            return {
-                numberOfClicks: prevState.numberOfClicks + 2,
-                firstPlayersTurn: this.state.numberOfClicks % 2 === 0
-            }
-        })
+        if (numberOfClicks < 8 && !winner) {
+            const computerField = gameFields.filter(field => {
+                var position = parseInt(field.position.match(/\d/g).join(''))
 
+                return position === compPos
+            })
+
+            computerField[0].setSign(secondPlayerSign)
+            computerField[0].setSelected()
+            setPlayersPositions(parseInt(computerField[0].position.match(/\d/g).join('')))
+
+            this.setState(prevState => {
+                return {
+                    numberOfClicks: prevState.numberOfClicks + 1,
+                    firstPlayersTurn: this.state.numberOfClicks % 2 !== 0
+                }
+            })
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -75,7 +77,6 @@ export default class GamePage extends Component {
             })
             setPlayersScore(true)
         } else if (gamePlayService.isWinningCombo(secondPlayersCombo)) {
-            console.log(secondPlayersPositions)
             this.setState({
                 winner: secondPlayersName,
                 isGameOver: true
@@ -112,7 +113,7 @@ export default class GamePage extends Component {
                 <Score />
                 {!isGameOver && <h4>{currentPlayer}'s turn...</h4>}
                 <div className="game-table">
-                    {gameFields.map(field => <GameField key={field.position} field={field} firstPlayersTurn={firstPlayersTurn} onSelectField={this.onSelectField} isGameOver={isGameOver} onComputerSelectFiled={this.onComputerSelectFiled}/>)}
+                    {gameFields.map(field => <GameField key={field.position} field={field} firstPlayersTurn={firstPlayersTurn} onSelectField={this.onSelectField} isGameOver={isGameOver} onComputerSelectFiled={this.onComputerSelectFiled} />)}
                 </div>
 
                 {winner && isGameOver && (

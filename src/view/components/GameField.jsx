@@ -14,16 +14,17 @@ const GameField = ({ firstPlayersTurn, onSelectField, field, isGameOver, onCompu
         if(gameMode === 'two-players') {
             twoPlayersMode(position, isSelected)
         } else if(gameMode === 'single-player') {
-            const computersPosition = gamePlayService.chooseComputerPosition([...firstPlayersPositions, position], secondPlayersPositions)
-            singlePlayerMode(position, isSelected, computersPosition)
+            singlePlayerMode(position, isSelected)            
         }
         
     }
-
-    const singlePlayerMode = (position, isSelected, computersPosition) => {
+    
+    const singlePlayerMode = (position, isSelected) => {
+        const computersPosition = gamePlayService.chooseComputerPositionHard([...firstPlayersPositions, position], secondPlayersPositions)
         if (firstPlayersTurn && !isSelected && !isGameOver) {
             field.setSign(firstPlayerSign)
             setPlayersPositions(position, true)
+            onSelectField()
             setTimeout(function(){
                 onComputerSelectFiled(computersPosition)
             }, 1000)
