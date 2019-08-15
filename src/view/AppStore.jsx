@@ -19,17 +19,10 @@ export default class AppStore extends Component {
   setGameMode = (chosenMode) => {
     const isSinglePlayer = chosenMode === 'single-player'
     this.setState({
-      gameMode: storageService.save('gameMode', isSinglePlayer ? 'single-player' : 'two-players')
+      gameMode: storageService.save('gameMode', isSinglePlayer ? 'single-player' : 'two-players'),
+      secondPlayersName: isSinglePlayer ? storageService.save('secondPlayersName', 'Computer') : storageService.save('secondPlayersName', 'Second player')
     })
   }
-
-  // setSign = (clickedSign) => {
-  //   const isX = clickedSign === 'sign-x'
-  //   this.setState({
-  //     firstPlayerSign: storageService.save('firstPlayerSign', isX ? 'x' : 'o'),
-  //     secondPlayerSign: storageService.save('secondPlayerSign', isX ? 'o' : 'x')
-  //   })
-  // }
 
   switchPlayersSigns = () => {
     this.setState(prevState => {

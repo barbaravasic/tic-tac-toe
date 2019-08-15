@@ -1,16 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from '../_context/AppContext';
 import { gamePlayService } from '../../services/gamePlayService';
 
-const GameField = ({ firstPlayersTurn, onSelectField, field, isGameOver, onComputerSelectFiled, computerInitialPosition }) => {
+const GameField = ({ firstPlayersTurn, onSelectField, field, isGameOver, onComputerSelectFiled }) => {
     const { firstPlayerSign, secondPlayerSign, setPlayersPositions, gameMode, firstPlayersPositions, secondPlayersPositions } = useContext(AppContext)
-
-    // useEffect(() => {
-    //     if (computerInitialPosition === field.position) {
-    //         onComputerSelectFiled(computerInitialPosition)
-
-    //     }
-    // }, [computerInitialPosition, field.position, onComputerSelectFiled])
 
     const onSelect = (e) => {
         field.setSelected()
@@ -27,7 +20,7 @@ const GameField = ({ firstPlayersTurn, onSelectField, field, isGameOver, onCompu
     }
 
     const singlePlayerMode = (position, isSelected) => {
-        if (firstPlayersTurn && !isSelected && !isGameOver) {
+        if (!isSelected && !isGameOver) {
             const computersPosition = gamePlayService.chooseComputerPositionHard([...firstPlayersPositions, position], secondPlayersPositions)
             field.setSign(firstPlayerSign)
             setPlayersPositions(position, true)

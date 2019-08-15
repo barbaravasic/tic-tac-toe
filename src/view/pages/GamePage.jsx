@@ -18,30 +18,21 @@ export default class GamePage extends Component {
     }
 
     onSelectField = () => {
-        const { secondPlayerSign } = this.context
 
-        if (secondPlayerSign === 'x') {
-            this.setState(prevState => {
-                return {
-                    numberOfClicks: prevState.numberOfClicks + 1,
-                    isFirstPlayersTurn: this.state.numberOfClicks % 2 === 0
-                }
-            })
-        } else {
-            this.setState(prevState => {
-                return {
-                    numberOfClicks: prevState.numberOfClicks + 1,
-                    isFirstPlayersTurn: this.state.numberOfClicks % 2 !== 0
-                }
-            })
-        }
+        this.setState(prevState => {
+            return {
+                numberOfClicks: prevState.numberOfClicks + 1,
+                isFirstPlayersTurn: !prevState.isFirstPlayersTurn
+            }
+        })
     }
 
     onComputerSelectFiled = (compPos) => {
         const { secondPlayerSign, setPlayersPositions } = this.context
-        const { gameFields, numberOfClicks, winner } = this.state
+        const { gameFields, numberOfClicks, winner, isFirstPlayersTurn } = this.state
 
-        if (numberOfClicks < 8 && !winner) {
+        if (numberOfClicks <= 8 && !winner && !isFirstPlayersTurn) {
+
             const computerField = gameFields.filter(field => {
                 var position = parseInt(field.position.match(/\d/g).join(''))
 
@@ -52,46 +43,48 @@ export default class GamePage extends Component {
             computerField[0].setSelected()
             setPlayersPositions(parseInt(computerField[0].position.match(/\d/g).join('')))
 
-            if (secondPlayerSign === 'x') {
-                this.setState(prevState => {
-                    return {
-                        numberOfClicks: prevState.numberOfClicks + 1,
-                        isFirstPlayersTurn: this.state.numberOfClicks % 2 === 0
-                    }
-                })
-            } else {
-                this.setState(prevState => {
-                    return {
-                        numberOfClicks: prevState.numberOfClicks + 1,
-                        isFirstPlayersTurn: this.state.numberOfClicks % 2 !== 0
-                    }
-                })
-            }
+            this.onSelectField()
         }
     }
 
+    getInitialComputerField() {
+        const computersPosition = gamePlayService.randomPosition()
+
+        this.setState({
+            computersInitialPosition: computersPosition
+        })
+
+        return this.state.gameFields.filter(field => {
+            var position = parseInt(field.position.match(/\d/g).join(''))
+
+            return position === computersPosition
+        })
+    }
+
+
     componentDidUpdate(prevProps, prevState) {
+        const { gameMode, secondPlayerSign, setPlayersPositions } = this.context
+
+        
         if (this.state.numberOfClicks !== prevState.numberOfClicks) {
             this.declareWinner()
+        }
+        
+        if (gameMode === 'single-player' && secondPlayerSign === 'x' && this.state.computersInitialPosition === 0) {
+            
+            const computerField = this.getInitialComputerField()
+            computerField[0].setSign(secondPlayerSign)
+            computerField[0].setSelected()
+            setPlayersPositions(parseInt(computerField[0].position.match(/\d/g).join('')))
+
+            this.onSelectField()
         }
     }
 
     componentDidMount() {
         const gameFields = gameFieldService.createGameField()
-        const { gameMode, secondPlayerSign } = this.context
 
         this.setState({ gameFields })
-        const computersPosition = gamePlayService.randomPosition()
-        console.log(computersPosition)
-
-        if (gameMode === 'single-player' && secondPlayerSign === 'x') {
-            const computersPosition = gamePlayService.randomPosition()
-            console.log(computersPosition)
-
-            this.setState({
-                computersInitialPosition: computersPosition
-            })
-        }
     }
 
     declareWinner = () => {
@@ -126,23 +119,23 @@ export default class GamePage extends Component {
         const gameFields = gameFieldService.createGameField()
         this.context.resetPlayersPositions()
         this.context.switchPlayersSigns()
+
         this.setState({
             isGameOver: false,
             gameFields,
             winner: '',
-            firstPlayersTurn: this.context.firstPlayersTurn,
-            numberOfClicks: 0
+            isFirstPlayersTurn: !this.context.firstPlayersTurn,
+            numberOfClicks: 0,
+            computersInitialPosition: 0
         })
     }
 
     render() {
         const { winner, gameFields, isGameOver, isFirstPlayersTurn, computersInitialPosition } = this.state
-        const { firstPlayersName, secondPlayersName, firstPlayersTurn } = this.context
+        const { firstPlayersName, secondPlayersName } = this.context
 
         const currentPlayer = isFirstPlayersTurn ? firstPlayersName : secondPlayersName
 
-        console.log(isFirstPlayersTurn);
-        // console.log(this.context.secondPlayerSign);
         return (
             <div className="game-page">
                 <Score />

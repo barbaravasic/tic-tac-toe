@@ -13,7 +13,6 @@ const PlayerInfo = () => {
                 <SinglePlayerInfo />
                 : <TwoPlayersInfo />}
             <Link to="/play-game" className="btn">Nastavi</Link>
-            }
         </div>
     );
 };

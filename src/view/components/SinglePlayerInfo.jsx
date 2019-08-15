@@ -31,7 +31,7 @@ const SinglePlayerInfo = () => {
                     <label>Enter your name</label>
                 </div>
             </div>
-            <h3 className="subtitle">Choose your sign</h3>
+            {/* <h3 className="subtitle">Choose your sign</h3> */}
             {/* <div className="sign-container">
                 <div className="sign" id="sign-x" onClick={onSetSign}>
                     <img src="./images/x.png" alt="x sign" />
