@@ -72,12 +72,15 @@ export default class GamePage extends Component {
         
         if (gameMode === 'single-player' && secondPlayerSign === 'x' && this.state.computersInitialPosition === 0) {
             
-            const computerField = this.getInitialComputerField()
-            computerField[0].setSign(secondPlayerSign)
-            computerField[0].setSelected()
-            setPlayersPositions(parseInt(computerField[0].position.match(/\d/g).join('')))
-
-            this.onSelectField()
+            setTimeout(() => {
+                const computerField = this.getInitialComputerField()
+                computerField[0].setSign(secondPlayerSign)
+                computerField[0].setSelected()
+                setPlayersPositions(parseInt(computerField[0].position.match(/\d/g).join('')))
+    
+                this.onSelectField()
+            }, 1000)
+           
         }
     }
 
