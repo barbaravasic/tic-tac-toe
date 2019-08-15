@@ -31,7 +31,6 @@ const GameField = ({ firstPlayersTurn, onSelectField, field, isGameOver, onCompu
         }
     }
     const twoPlayersMode = (position, isSelected) => {
-        console.log(firstPlayerSign);
         if (firstPlayersTurn && !isSelected && !isGameOver) {
             field.setSign(firstPlayerSign)
             onSelectField()
@@ -42,9 +41,18 @@ const GameField = ({ firstPlayersTurn, onSelectField, field, isGameOver, onCompu
             setPlayersPositions(position)
         }
     }
+    
+    const handleSelect = (e) => {
+        if(gameMode === 'single-player' && firstPlayersTurn ) {
+            onSelect(e)
+        } else if (gameMode === 'two-players') {
+            onSelect(e)
+        }
 
+        return
+    }
     return (
-        <div className={`game-field ${field.selected ? 'selected' : ''}`} id={field.position} onClick={onSelect}>
+        <div className={`game-field ${field.selected ? 'selected' : ''}`} id={field.position} onClick={handleSelect}>
             <img className={field.sign} src={`/images/${field.sign}.png`} alt={field.sign} />
         </div>
     );
