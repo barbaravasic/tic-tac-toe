@@ -32,14 +32,14 @@ const SinglePlayerInfo = () => {
                 </div>
             </div>
             <h3 className="subtitle">Choose your sign</h3>
-            <div className="sign-container">
+            {/* <div className="sign-container">
                 <div className="sign" id="sign-x" onClick={onSetSign}>
                     <img src="./images/x.png" alt="x sign" />
                 </div>
                 <div className="sign" id="sign-o" onClick={onSetSign}>
                     <img src="./images/o.png" alt="o sign" />
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };

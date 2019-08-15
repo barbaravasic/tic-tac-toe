@@ -35,7 +35,6 @@ class GamePlayService {
     }
 
     possibleWinningCombo(positions, takenPositions) {
-        // const combinations = [this.winCombination1, this.winCombination2, this.winCombination3, this.winCombination4, this.winCombination5, this.winCombination6, this.winCombination7, this.winCombination8]
 
         const combos = this.combinations.filter(winCombo => {
             return winCombo.some(el => positions.includes(el))
@@ -90,13 +89,19 @@ class GamePlayService {
         return availablePositions[index]
     }
 
+    randomPosition() {
+        const allPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        const index = Math.floor(Math.random() * (allPositions.length - 0 + 0)) + 0
+        return allPositions[index]
+    }
+
     chooseComputerPositionHard(firstPlayersPositions, computerPositions) {
 
         const prioritizedPositions = this.createComputersCombo(firstPlayersPositions, computerPositions)
 
         const index = Math.floor(Math.random() * (prioritizedPositions.length - 0 + 0)) + 0
 
-        // console.log(prioritizedPositions)
         return prioritizedPositions[index]
 
     }

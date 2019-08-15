@@ -5,8 +5,9 @@ import { storageService } from '../services/storageService';
 export default class AppStore extends Component {
   state = {
     gameMode: storageService.get('gameMode') || null,
-    firstPlayerSign: storageService.get('firstPlayerSign') || 'x',
-    secondPlayerSign: storageService.get('secondPlayerSign') || 'o',
+    firstPlayerSign: 'x',
+    secondPlayerSign: 'o',
+    firstPlayersTurn: true,
     firstPlayersPositions: [],
     secondPlayersPositions: [],
     firstPlayersName: storageService.get('firstPlayersName') || 'First player',
@@ -18,15 +19,25 @@ export default class AppStore extends Component {
   setGameMode = (chosenMode) => {
     const isSinglePlayer = chosenMode === 'single-player'
     this.setState({
-      gameMode: storageService.save('gameMode', isSinglePlayer ? 'single-player' : 'two-players' )
+      gameMode: storageService.save('gameMode', isSinglePlayer ? 'single-player' : 'two-players')
     })
   }
 
-  setSign = (clickedSign) => {
-    const isX = clickedSign === 'sign-x'
-    this.setState({
-      firstPlayerSign: storageService.save('firstPlayerSign', isX ? 'x' : 'o'),
-      secondPlayerSign: storageService.save('secondPlayerSign', isX ? 'o' : 'x')
+  // setSign = (clickedSign) => {
+  //   const isX = clickedSign === 'sign-x'
+  //   this.setState({
+  //     firstPlayerSign: storageService.save('firstPlayerSign', isX ? 'x' : 'o'),
+  //     secondPlayerSign: storageService.save('secondPlayerSign', isX ? 'o' : 'x')
+  //   })
+  // }
+
+  switchPlayersSigns = () => {
+    this.setState(prevState => {
+      return {
+        firstPlayerSign: prevState.firstPlayerSign === 'x' ? 'o' : 'x',
+        secondPlayerSign: prevState.secondPlayerSign === 'x' ? 'o' : 'x',
+        firstPlayersTurn: !prevState.firstPlayersTurn
+      }
     })
   }
 
@@ -68,11 +79,11 @@ export default class AppStore extends Component {
       <AppContext.Provider value={{
         ...this.state,
         setGameMode: this.setGameMode,
-        setSign: this.setSign,
+        switchPlayersSigns: this.switchPlayersSigns,
         setPlayersPositions: this.setPlayersPositions,
         onChangePlayersName: this.onChangePlayersName,
         setPlayersScore: this.setPlayersScore,
-        resetPlayersPositions:this.resetPlayersPositions
+        resetPlayersPositions: this.resetPlayersPositions
       }}>
         {this.props.children}
       </AppContext.Provider>
